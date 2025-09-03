@@ -6,14 +6,24 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
 use Maatwebsite\Excel\Facades\Excel;
+
+use function Laravel\Prompts\error;
+
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search  =$request->query('search');
+        
+       $students = Student::when($search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('nis', 'like', "%{$search}%");
+        })->orderBy('name', 'asc')->paginate(10);
+
+        return view('students.create-student', compact('students' , 'search'));
     }
 
     /**
@@ -21,8 +31,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('students.create-student');
-
+        // return view('students.create-student');
     }
 
     /**
@@ -41,7 +50,7 @@ class StudentController extends Controller
 
         Student::create($request->all());
 
-        return redirect()->route('students.index')
+        return redirect()->back()
             ->with('success', 'Data siswa berhasil ditambahkan.');
     }
     }
@@ -87,7 +96,7 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
-        return redirect()->route('students.index')
+        return redirect()->back()
             ->with('success', 'Data siswa berhasil dihapus.');
     }
 
