@@ -21,9 +21,9 @@ class StudentController extends Controller
        $students = Student::when($search, function ($query, $search) {
             $query->where('name', 'like', "%{$search}%")
                   ->orWhere('nis', 'like', "%{$search}%");
-        })->orderBy('name', 'asc')->paginate(10);
+        })->orderBy('class', 'asc')->paginate(10);
 
-        return view('students.create-student', compact('students' , 'search'));
+        return view('students.students', compact('students' , 'search'));
     }
 
     /**
@@ -46,6 +46,7 @@ class StudentController extends Controller
             'class' => 'required|max:50',
             'gender' => 'nullable|in:M,F',
             'birth_date' => 'nullable|date',
+
         ]);
 
         Student::create($request->all());
@@ -68,7 +69,8 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        return view('students.edit', compact('student'));
+         $student = Student::findOrFail($id);
+        return view('students.partials.update-form', compact('student'));
     }
 
     /**
