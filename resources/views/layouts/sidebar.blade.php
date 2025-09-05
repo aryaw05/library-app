@@ -57,8 +57,6 @@
                 <button
                     type="button"
                     class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="dropdown-pages"
-                    data-collapse-toggle="dropdown-pages"
                 >
                     <svg
                         aria-hidden="true"
@@ -90,7 +88,7 @@
                         ></path>
                     </svg>
                 </button>
-                <ul id="dropdown-pages" class="hidden py-2 space-y-2">
+                <ul id="dropdown-pages" class="py-2 space-y-2">
                     <li>
                         <a
                             href="{{ route("students.index") }}"
@@ -105,8 +103,6 @@
                 <button
                     type="button"
                     class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="dropdown-sales"
-                    data-collapse-toggle="dropdown-sales"
                 >
                     <svg
                         aria-hidden="true"
@@ -138,10 +134,10 @@
                         ></path>
                     </svg>
                 </button>
-                <ul id="dropdown-sales" class="hidden py-2 space-y-2">
+                <ul id="dropdown-sales" class="py-2 space-y-2">
                     <li>
                         <a
-                            href="#"
+                            href="{{ route("books.index") }}"
                             class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         >
                             Data Buku
