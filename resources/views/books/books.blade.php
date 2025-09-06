@@ -9,8 +9,8 @@
         <div class="flex justify-between items-center mb-4 w-full">
             <div>
                 <button
-                    data-modal-target="crud-modal"
-                    data-modal-toggle="crud-modal"
+                    data-modal-target="crud-modal-book"
+                    data-modal-toggle="crud-modal-book"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button"
                 >
@@ -25,7 +25,7 @@
                         value="{{ $search ?? "" }}"
                         type="text"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Cari data siswa"
+                        placeholder="Cari data buku..."
                         required
                     />
                 </div>
@@ -87,19 +87,32 @@
                         {{ $book->stock }}
                     </td>
 
+                    <!-- book code -->
+                    <td class="px-6 py-4">
+                        {{ $book->book_code }}
+                    </td>
+
                     <!-- Tombol Aksi -->
                     <td class="px-6 py-4 flex gap-4 items-center">
-                        <a
-                            href="{{ route("students.edit", $student->id) }}"
+                        <button
+                            data-modal-target="edit-modal-book"
+                            data-modal-toggle="edit-modal-book"
+                            data-title="{{ $book->title }}"
+                            data-author="{{ $book->author }}"
+                            data-year="{{ $book->year }}"
+                            data-stock="{{ $book->stock }}"
+                            data-book_code="{{ $book->book_code }}"
+                            data-action="{{ route("books.update", $book->id) }}"
                             type="button"
                             class="btn-edit font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                            href="{{ route("books.edit", $book->id) }}"
                         >
                             Edit
-                        </a>
+                        </button>
 
                         <form
-                            action="{{ route("students.destroy", $student->id) }}"
                             method="POST"
+                            action="{{ route("books.destroy", $book->id) }}"
                         >
                             @csrf
                             @method("DELETE")
@@ -212,4 +225,9 @@
             </ul>
         </nav>
     </div>
+    <!-- Modal for add data -->
+    @include("books.partials.add-form")
+
+    <!-- Modal for edit data -->
+    @include("books.partials.update-form")
 </x-app-layout>
