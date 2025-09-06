@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Books;
 use Illuminate\Http\Request;
 
-class BoooksController extends Controller
+class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,18 @@ class BoooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'year' => 'nullable|integer|min:0',
+            'stock' => 'nullable|integer|min:0',
+            'book_code' => 'nullable|unique:books,book_code|max:50',
+        ]);
+
+        Books::create($request->all());
+
+        return redirect()->back()
+            ->with('success', 'Data buku berhasil ditambahkan.');
     }
 
     /**
@@ -51,22 +62,35 @@ class BoooksController extends Controller
      */
     public function edit(string $id)
     {
-        //
+           
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Books $books)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'year' => 'nullable|integer|min:0',
+            'stock' => 'nullable|integer|min:0',
+            'book_code' => 'nullable|unique:books,book_code,'.$books->id.'|max:50',
+        ]);
+        $books->update($request->all());
+
+        return redirect()->back()
+            ->with('success', 'Data buku berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Books $book)
+    { 
+        $book->delete();
+
+        return redirect()->back()
+            ->with('success', 'Data buku berhasil dihapus.');
     }
 }

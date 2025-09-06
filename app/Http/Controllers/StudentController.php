@@ -39,7 +39,6 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-            {
         $request->validate([
             'nis' => 'required|unique:students,nis|max:20',
             'name' => 'required|max:100',
@@ -53,7 +52,6 @@ class StudentController extends Controller
 
         return redirect()->back()
             ->with('success', 'Data siswa berhasil ditambahkan.');
-    }
     }
 
     /**
