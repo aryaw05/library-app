@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\BooksLoanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +14,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth' , 'verified')->group(function () {
 
     // auth routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,6 +30,11 @@ Route::middleware('auth')->group(function () {
 
     // import students
     Route::post('/students/import' , [StudentController::class, 'import'])->name('students.import');
+
+
+
+    // books loan routes 
+    Route::resource('books-loan', BooksLoanController::class);
 });
 
 require __DIR__.'/auth.php';
