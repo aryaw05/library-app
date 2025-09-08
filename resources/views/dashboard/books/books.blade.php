@@ -226,8 +226,8 @@
         </nav>
     </div>
     <!-- Modal for add data -->
-    @include("books.partials.add-form")
+    @include("dashboard.books.partials.add-form")
 
     <!-- Modal for edit data -->
-    @include("books.partials.update-form")
+    @include("dashboard.books.partials.update-form")
 </x-app-layout>

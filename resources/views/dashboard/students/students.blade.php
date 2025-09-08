@@ -45,7 +45,6 @@
                 >
                     <svg
                         class="w-4 h-4"
-                        aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 20 20"
@@ -111,9 +110,10 @@
                     <!-- Tombol Aksi -->
                     <td class="px-6 py-4 flex gap-4 items-center">
                         <a
-                            href="{{ route("students.edit", $student->id) }}"
                             type="button"
                             class="btn-edit font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                            aria-hidden="true"
+                            href="{{ route("students.edit", $student->id) }}"
                         >
                             Edit
                         </a>
@@ -130,7 +130,6 @@
                             >
                                 <svg
                                     class="w-[18px] h-[18px] text-white dark:text-white"
-                                    aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
                                     height="24"
@@ -234,8 +233,8 @@
         </nav>
     </div>
     <!-- Modal for add data -->
-    @include("students.partials.add-form")
+    @include("dashboard.students.partials.add-form")
 
     <!-- Modal for import excel -->
-    @include("students.partials.import-excel")
+    @include("dashboard.students.partials.import-excel")
 </x-app-layout>
