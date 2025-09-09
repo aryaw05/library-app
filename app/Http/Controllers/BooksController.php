@@ -19,7 +19,7 @@ class BooksController extends Controller
                   ->orWhere('author', 'like', "%{$search}%");
         })->orderBy('title', 'asc')->paginate(10);
 
-        return view('books.books', compact('books' , 'search'));
+        return view('dashboard.books.books', compact('books' , 'search'));
     }
 
     /**
@@ -68,16 +68,16 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Books $books)
+    public function update(Request $request, Books $book)
     {
         $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
             'year' => 'nullable|integer|min:0',
             'stock' => 'nullable|integer|min:0',
-            'book_code' => 'nullable|unique:books,book_code,'.$books->id.'|max:50',
+            'book_code' => 'nullable|unique:books,book_code,'.$book->id.'|max:50',
         ]);
-        $books->update($request->all());
+        $book->update($request->all());
 
         return redirect()->back()
             ->with('success', 'Data buku berhasil diperbarui.');

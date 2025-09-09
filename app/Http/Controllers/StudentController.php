@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
 use Maatwebsite\Excel\Facades\Excel;
 
-use function Laravel\Prompts\error;
 
 class StudentController extends Controller
 {
@@ -23,7 +22,7 @@ class StudentController extends Controller
                   ->orWhere('nis', 'like', "%{$search}%");
         })->orderBy('class', 'asc')->paginate(10);
 
-        return view('students.students', compact('students' , 'search'));
+        return view('dashboard.students.students', compact('students' , 'search'));
     }
 
     /**
@@ -68,7 +67,7 @@ class StudentController extends Controller
     public function edit(string $id)
     {
          $student = Student::findOrFail($id);
-        return view('students.partials.update-form', compact('student'));
+        return view('dashboard.students.partials.update-form', compact('student'));
     }
 
     /**
