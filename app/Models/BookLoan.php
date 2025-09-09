@@ -11,7 +11,14 @@ class BookLoan extends Model
         'student_id',
         'loan_date',
         'return_date',
+        'due_date',
         'status',
+
+        
+    ];
+
+     protected $attributes = [
+        'status' => 'borrowed',
     ];
 
 
