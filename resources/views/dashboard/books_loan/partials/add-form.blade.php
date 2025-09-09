@@ -1,116 +1,107 @@
-<x-modal-form>
-    <form method="POST" action="{{ route("books.store") }}" class="p-4 md:p-5">
-        @csrf
-        <div class="grid gap-4 mb-4 grid-cols-2">
-            <!-- Name -->
-            <div class="col-span-2 sm:col-span-2">
-                <label
-                    for="name"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                    Judul Buku
-                </label>
-                <input
-                    type="text"
-                    name="title"
-                    id="title"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Masukkan nama buku..."
-                    required
-                />
-            </div>
-            <!-- Author -->
-            <div class="col-span-2 sm:col-span-1">
-                <label
-                    for="author"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                    Pengarang
-                </label>
-                <input
-                    type="text"
-                    name="author"
-                    id="author"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Masukkan nama pengarang..."
-                    required
-                />
-            </div>
-
-            <!-- year -->
-            <div class="col-span-2 sm:col-span-1">
-                <label
-                    for="year"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                    Tahun Terbit
-                </label>
-                <input
-                    type="number"
-                    name="year"
-                    id="year"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Contoh: 2020"
-                    required
-                    min="1000"
-                    max="{{ date("Y") }}"
-                />
-            </div>
-
-            <!-- Stock -->
-            <div class="col-span-2 sm:col-span-1">
-                <label
-                    for="stock"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                    Stok
-                </label>
-                <input
-                    type="number"
-                    name="stock"
-                    id="stock"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Contoh : 10"
-                    required
-                />
-            </div>
-
-            <!-- Book Code -->
-            <div class="col-span-2 sm:col-span-1">
-                <label
-                    for="book_code"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                    Kode Buku
-                </label>
-                <input
-                    type="text"
-                    name="book_code"
-                    id="book_code"
-                    placeholder="Contoh: B001"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                />
-            </div>
-        </div>
-        <!-- Submit Button -->
-        <button
-            data-modal-hide="crud-modal-book"
-            type="submit"
-            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+<x-app-layout>
+    <x-slot name="header">
+        <h2
+            class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
         >
-            <svg
-                class="me-1 -ms-1 w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                    clip-rule="evenodd"
-                ></path>
-            </svg>
-            Tambah Siswa
-        </button>
-    </form>
-</x-modal-form>
+            {{ __("Data Peminjaman Buku") }}
+        </h2>
+    </x-slot>
+    <div
+        class="bg-white dark:bg-gray-800 max-w-xl mx-auto px-6 py-8 lg:py-12 rounded-xl shadow-sm"
+    >
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+            Add a new product
+        </h2>
+        <form action="{{ route("books-loan.store") }}" method="POST">
+            @csrf
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <!-- Pilih Buku -->
+                <div class="w-full sm:col-span-2">
+                    <label
+                        for="book_id"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                        Judul Buku
+                    </label>
+                    <select
+                        name="book_id"
+                        id="book_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        required
+                    >
+                        <option value="">Pilih Buku</option>
+
+                        @foreach ($books as $id => $title)
+                            <option value="{{ $id }}">{{ $title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Pilih Siswa -->
+                <div class="w-full sm:col-span-2">
+                    <label
+                        for="student_id"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                        Nama Siswa Peminjam
+                    </label>
+                    <select
+                        name="student_id"
+                        id="student_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        required
+                    >
+                        <option value="">Pilih Siswa</option>
+
+                        @foreach ($students as $id => $name)
+                            <option value="{{ $id }}">{{ $name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Tanggal Pinjam -->
+                <div>
+                    <label
+                        for="loan_date"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                        Tanggal Pinjam
+                    </label>
+                    <input
+                        type="date"
+                        name="loan_date"
+                        id="loan_date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        required
+                    />
+                </div>
+
+                <!-- Tanggal Jatuh Tempo -->
+                <div>
+                    <label
+                        for="due_date"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                        Tanggal Jatuh Tempo
+                    </label>
+                    <input
+                        type="date"
+                        name="due_date"
+                        id="due_date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        required
+                    />
+                </div>
+                <!-- Tombol Submit -->
+                <div class="sm:col-span-2">
+                    <button
+                        type="submit"
+                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Simpan Peminjaman
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</x-app-layout>

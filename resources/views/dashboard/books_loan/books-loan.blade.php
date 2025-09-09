@@ -9,14 +9,15 @@
         <!-- add data -->
         <div class="flex justify-between items-center mb-4 w-full">
             <div>
-                <button
-                    data-modal-target="crud-modal-book"
-                    data-modal-toggle="crud-modal-book"
+                <a
+                    href="{{ route("books-loan.create") }}"
+                    data-modal-target="crud-modal-book-loan"
+                    data-modal-toggle="crud-modal-book-loan"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button"
                 >
-                    Tambah Data Buku
-                </button>
+                    Tambah Data Peminjaman
+                </a>
             </div>
             <form class="flex items-center max-w-lg" method="GET">
                 <label for="voice-search" class="sr-only">Search</label>
@@ -57,11 +58,13 @@
                 <th scope="col" class="px-6 py-3">Judul Buku</th>
                 <th scope="col" class="px-6 py-3">Nama siswa</th>
                 <th scope="col" class="px-6 py-3">Tanggal Meminjam</th>
-                <th scope="col" class="px-6 py-3">Tanggal Kembali</th>
-                <th scope="col" class="px-6 py-3">Kode Buku</th>
+                <th scope="col" class="px-6 py-3">Tanggal Jatuh Tempo</th>
+                <th scope="col" class="px-6 py-3">Tanggal Pengembalian</th>
+                <th scope="col" class="px-6 py-3">Jumlah Hari Terlambat</th>
+                <th scope="col" class="px-6 py-3">Status Peminjaman</th>
                 <th scope="col" class="px-6 py-3">Aksi</th>
             </x-slot>
-            @forelse ($books as $book)
+            @forelse ($loans as $loan)
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
@@ -70,27 +73,35 @@
                         scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                        {{ $book->title }}
+                        {{ $loan->book->title }}
                     </th>
 
-                    <!-- Author -->
+                    <!-- Student Name -->
                     <td class="px-6 py-4">
-                        {{ $book->author }}
+                        {{ $loan->student->name }}
                     </td>
 
-                    <!-- Year -->
+                    <!-- loan_date-->
                     <td class="px-6 py-4">
-                        {{ $book->year }}
+                        {{ $loan->loan_date }}
                     </td>
 
-                    <!-- STOCK -->
+                    <!-- due_date -->
                     <td class="px-6 py-4">
-                        {{ $book->stock }}
+                        {{ $loan->due_date }}
                     </td>
 
-                    <!-- book code -->
+                    <!-- Return Date -->
                     <td class="px-6 py-4">
-                        {{ $book->book_code }}
+                        {{ $loan->return_date ?? "Belum dikembalikan" }}
+                    </td>
+
+                    <!-- late days -->
+                    <td class="px-6 py-4">{{ $loan->late_days }} Hari</td>
+
+                    <!-- status -->
+                    <td class="px-6 py-4">
+                        {{ $loan->status === "borrowed" ? "Dipinjam" : "Dikembalikan" }}
                     </td>
 
                     <!-- Tombol Aksi -->
@@ -98,22 +109,16 @@
                         <button
                             data-modal-target="edit-modal-book"
                             data-modal-toggle="edit-modal-book"
-                            data-title="{{ $book->title }}"
-                            data-author="{{ $book->author }}"
-                            data-year="{{ $book->year }}"
-                            data-stock="{{ $book->stock }}"
-                            data-book_code="{{ $book->book_code }}"
-                            data-action="{{ route("books.update", $book->id) }}"
                             type="button"
                             class="btn-edit font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            href="{{ route("books.edit", $book->id) }}"
+                            href="{{ route("books.edit", $loan->id) }}"
                         >
                             Edit
                         </button>
 
                         <form
                             method="POST"
-                            action="{{ route("books.destroy", $book->id) }}"
+                            action="{{ route("books.destroy", $loan->id) }}"
                         >
                             @csrf
                             @method("DELETE")
