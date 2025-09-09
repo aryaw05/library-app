@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookLoan;
+use App\Models\Books;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class BooksLoanController extends Controller
@@ -14,7 +16,7 @@ class BooksLoanController extends Controller
     {
          $search = $request->query('search');
 
-    $books = BookLoan::with(['book', 'student'])
+    $loans = BookLoan::with(['book', 'student'])
         ->when($search, function ($query, $search) {
             $query->where(function ($q) use ($search) {
                     
@@ -29,7 +31,7 @@ class BooksLoanController extends Controller
         })
         ->orderByDesc('loan_date')
         ->paginate(10);
-        return view('dashboard.books_loan.books-loan', compact('books' , 'search'));
+        return view('dashboard.books_loan.books-loan', compact('loans' , 'search'));
     }
 
     /**
@@ -37,16 +39,32 @@ class BooksLoanController extends Controller
      */
     public function create()
     {
-        //
+          $students = Student::pluck('name', 'id');
+        $books = Books::pluck('title', 'id');
+        return view ('dashboard.books_loan.partials.add-form' , compact('students' , 'books'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+        public function store(Request $request)
+        {
+
+            if($request->due_date && $request->due_date < $request->loan_date){
+                return redirect()->back()->withErrors(['return_date' => 'Tanggal pengembalian harus setelah atau sama dengan tanggal peminjaman.'])->withInput();
+            }
+
+            $validatedData = $request->validate([
+                'book_id' => 'required|exists:books,id',
+                'student_id' => 'required|exists:students,id',
+                'loan_date' => 'required|date',
+                'due_date' => 'required|date|after_or_equal:loan_date',
+            ]);
+
+            BookLoan::create($validatedData);
+
+            return redirect()->route('books-loan.index')->with('success', 'Data peminjaman berhasil ditambahkan.');
+        }
 
     /**
      * Display the specified resource.
@@ -61,7 +79,8 @@ class BooksLoanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $bookLoan = BookLoan::findOrFail($id);
+        return view('dashboard.books_loan.edit', compact('bookLoan'));
     }
 
     /**
