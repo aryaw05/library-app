@@ -83,12 +83,12 @@
 
                     <!-- loan_date-->
                     <td class="px-6 py-4">
-                        {{ $loan->loan_date }}
+                        {{ \Carbon\Carbon::parse($loan->loan_date)->format("d-m-Y") }}
                     </td>
 
                     <!-- due_date -->
                     <td class="px-6 py-4">
-                        {{ $loan->due_date }}
+                        {{ \Carbon\Carbon::parse($loan->due_date)->format("d-m-Y") }}
                     </td>
 
                     <!-- Return Date -->
@@ -106,19 +106,16 @@
 
                     <!-- Tombol Aksi -->
                     <td class="px-6 py-4 flex gap-4 items-center">
-                        <button
-                            data-modal-target="edit-modal-book"
-                            data-modal-toggle="edit-modal-book"
-                            type="button"
+                        <a
                             class="btn-edit font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            href="{{ route("books.edit", $loan->id) }}"
+                            href="{{ route("books-loan.edit", $loan->id) }}"
                         >
                             Edit
-                        </button>
+                        </a>
 
                         <form
                             method="POST"
-                            action="{{ route("books.destroy", $loan->id) }}"
+                            action="{{ route("books-loan.destroy", $loan->id) }}"
                         >
                             @csrf
                             @method("DELETE")

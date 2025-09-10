@@ -39,7 +39,7 @@ class BooksLoanController extends Controller
      */
     public function create()
     {
-          $students = Student::pluck('name', 'id');
+        $students = Student::pluck('name', 'id');
         $books = Books::pluck('title', 'id');
         return view ('dashboard.books_loan.partials.add-form' , compact('students' , 'books'));
     }
@@ -79,23 +79,37 @@ class BooksLoanController extends Controller
      */
     public function edit(string $id)
     {
+        
         $bookLoan = BookLoan::findOrFail($id);
-        return view('dashboard.books_loan.edit', compact('bookLoan'));
+        return view('dashboard.books_loan.partials.update-form', compact('bookLoan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, BookLoan $books_loan)
     {
-        //
+
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'student_id' => 'required|exists:students,id',
+            'loan_date' => 'required|date',
+            'due_date' => 'required|date|after_or_equal:loan_date',
+        ]);
+
+        $books_loan->update($request->all());
+
+        return redirect()->route('books-loan.index')
+            ->with('success', 'Data peminjaman buku berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(BookLoan $books_loan )
     {
-        //
+        $books_loan->delete();
+        return redirect()->back()
+            ->with('success', 'Data peminjaman buku berhasil dihapus.');
     }
 }
