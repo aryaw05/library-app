@@ -35,6 +35,10 @@ Route::middleware('auth' , 'verified')->group(function () {
 
     // books loan routes 
     Route::resource('books-loan', BooksLoanController::class);
+
+
+// books loan return routes
+    Route::put('/books-loan/{books_loan}/return', [BooksLoanController::class, 'return'])->name('books-loan.return');
 });
 
 require __DIR__.'/auth.php';
