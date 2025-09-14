@@ -16,19 +16,28 @@
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button"
                 >
-                    Tambah Data Peminjaman
+                    Tambah Data
                 </a>
             </div>
 
             <div class="flex items-center gap-3 justify-center">
                 <!-- dropdown search by status -->
+                @php
+                    $statusLabels = [
+                        "borrowed" => "Dipinjam",
+                        "returned" => "Dikembalikan",
+                        "returned_late" => "Dikembalikan Terlambat",
+                    ];
+                    $selectedStatus = $statusLabels[$search] ?? "Semua";
+                @endphp
+
                 <button
                     id="dropdownDefaultButton"
                     data-dropdown-toggle="dropdown-books-loan"
                     class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-flex items-center"
                     type="button"
                 >
-                    Status
+                    {{ $selectedStatus }}
                     <svg
                         class="w-2.5 h-2.5 ms-3"
                         aria-hidden="true"
@@ -75,7 +84,7 @@
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="{{ url()->current() }}"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             >
                                 Semua
@@ -83,10 +92,10 @@
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="?search=returned_late"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             >
-                                Terlambat
+                                Dikembalikan Terlambat
                             </a>
                         </li>
                     </ul>
@@ -124,7 +133,7 @@
                 </form>
             </div>
         </div>
-        <x-table>
+        <x-table :pagination="$loans">
             <x-slot:header>
                 <th scope="col" class="px-6 py-3">Judul Buku</th>
                 <th scope="col" class="px-6 py-3">Nama siswa</th>
@@ -164,7 +173,7 @@
 
                     <!-- Return Date -->
                     <td class="px-6 py-4">
-                        {{ $loan->return_date ?? "Belum dikembalikan" }}
+                        {{ \Carbon\Carbon::parse($loan->return_date)->format("d-m-Y") }}
                     </td>
 
                     <!-- late days -->
@@ -172,7 +181,7 @@
 
                     <!-- status -->
                     <td class="px-6 py-4">
-                        {{ $loan->status === "borrowed" ? "Dipinjam" : "Dikembalikan" }}
+                        {{ $loan->status === "borrowed" ? "Dipinjam" : ($loan->status === "returned" ? "Dikembalikan" : ($loan->status === "returned_late" ? "Dikembalikan Terlambat" : "Terlambat")) }}
                     </td>
 
                     <!-- Tombol Aksi -->
@@ -202,12 +211,14 @@
 
                         <form
                             method="POST"
-                            action="{{ route("books-loan.destroy", $loan->id) }}"
+                            action="{{ route("books-loan.return", $loan->id) }}"
                         >
                             @csrf
+                            @method("PUT")
                             <button
                                 type="submit"
                                 class="focus:outline-none text-green-600 dark:text-green-500 hover:underline"
+                                {{ $loan->status !== "borrowed" ? "disabled" : "" }}
                             >
                                 <svg
                                     class="w-6 h-6 text-green-600 dark:text-white"
@@ -266,82 +277,5 @@
                 </tr>
             @endforelse
         </x-table>
-        <!-- Pagination -->
-        <nav
-            class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-            aria-label="Table navigation"
-        >
-            <span
-                class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto"
-            >
-                Showing
-                <span class="font-semibold text-gray-900 dark:text-white">
-                    1-10
-                </span>
-                of
-                <span class="font-semibold text-gray-900 dark:text-white">
-                    1000
-                </span>
-            </span>
-            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                <li>
-                    <a
-                        href="#"
-                        class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                        Previous
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                        1
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                        2
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#"
-                        aria-current="page"
-                        class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                    >
-                        3
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                        4
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                        5
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                        Next
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </div>
 </x-app-layout>

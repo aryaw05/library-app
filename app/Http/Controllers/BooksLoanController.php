@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BookLoan;
 use App\Models\Books;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BooksLoanController extends Controller
@@ -28,7 +29,7 @@ public function index(Request $request)
                 ->orWhere('status', 'like', "%{$search}%");
             });
         })
-        ->orderByDesc('loan_date')
+        ->orderByDesc('created_at'  )
         ->paginate(10);
 
     return view('dashboard.books_loan.books-loan', compact('loans', 'search'));
@@ -60,9 +61,18 @@ public function index(Request $request)
                 'student_id' => 'required|exists:students,id',
                 'loan_date' => 'required|date',
                 'due_date' => 'required|date|after_or_equal:loan_date',
-            ]);
+            ]); 
 
             BookLoan::create($validatedData);
+
+
+            $book   = Books::findOrFail($validatedData['book_id']);
+
+            if($book->stock <= 0){
+                return  redirect()->back()->withErrors( 'Stok buku tidak tersedia.')->withInput();
+            }
+                
+            $book->decrement('stock');
 
             return redirect()->route('books-loan.index')->with('success', 'Data peminjaman berhasil ditambahkan.');
         }
@@ -117,14 +127,12 @@ public function index(Request $request)
 
     public function return(Request $request, BookLoan $books_loan)
     {
-        $request->validate([
-            'return_date' => 'required|date|after_or_equal:loan_date',
-        ]);
+    if ($books_loan->isReturned()) {
+        return redirect()->back()->withErrors(['status' => 'Buku sudah dikembalikan.']);
+    }
+        $returnDate = $request->input('return_date', Carbon::now());
 
-        $books_loan->update([
-            'return_date' => $request->return_date,
-            'status' => 'returned',
-        ]);
+        $books_loan->markAsReturned($returnDate);
 
         return redirect()->route('books-loan.index')
             ->with('success', 'Buku berhasil dikembalikan.');
