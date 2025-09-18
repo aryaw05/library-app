@@ -7,254 +7,196 @@
 
     <div class="h-screen">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <div
-                class="lg:max-w-sm p-6 bg-white rounded-2xl shadow-lg dark:bg-gray-800 dark:border-gray-700"
+            <x-card-stats
+                :stats="$booksAll"
+                title="Total Buku"
+                link="{{ route('books.index') }}"
             >
                 <svg
-                    class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3"
+                    class="w-[35px] h-[35px] text-gray-500 dark:text-white mb-2"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 24 24"
                 >
                     <path
-                        d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z"
+                        fill-rule="evenodd"
+                        d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
+                        clip-rule="evenodd"
                     />
                 </svg>
-                <a href="#">
-                    <h5
-                        class="mb-2 text-2xl lg:text-5xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                    >
-                       {{ $studentsAll }}
-                    </h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
-                    Siswa terdaftar
-                </p>
-                <a
-                    href="#"
-                    class="inline-flex font-medium items-center text-blue-600 hover:underline"
-                >
-                    Lihat Selengkapnya
-                    <svg
-                        class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 18 18"
-                    >
-                        <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"
-                        />
-                    </svg>
-                </a>
-            </div>
-             <div
-                class="lg:max-w-sm p-6 bg-white rounded-2xl shadow-lg dark:bg-gray-800 dark:border-gray-700"
+            </x-card-stats>
+
+            <x-card-stats
+                :stats="$booksLoanAll"
+                title="Total Buku Sedang Dipinjam"
+                link="{{ route('books-loan.index') }}"
             >
                 <svg
-                    class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3"
+                    class="w-[35px] h-[35px] text-gray-500 dark:text-white mb-2"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 24 24"
                 >
                     <path
-                        d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 16h13M4 16l4-4m-4 4 4 4M20 8H7m13 0-4 4m4-4-4-4"
                     />
                 </svg>
-                <a href="#">
-                    <h5
-                        class="mb-2 text-2xl lg:text-5xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                    >
-                         {{ $booksLoanAll }}
-                    </h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
-                    Buku sedang di pinjam
-                </p>
-                <a
-                    href="#"
-                    class="inline-flex font-medium items-center text-blue-600 hover:underline"
-                >
-                    Lihat Selengkapnya
-                    <svg
-                        class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 18 18"
-                    >
-                        <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"
-                        />
-                    </svg>
-                </a>
-            </div>
-             <div
-                class="lg:max-w-sm p-6 bg-white rounded-2xl shadow-lg dark:bg-gray-800 dark:border-gray-700"
+            </x-card-stats>
+
+            <x-card-stats
+                :stats="$studentsAll"
+                title="Total Siswa"
+                link="{{ route('students.index') }}"
             >
                 <svg
-                    class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3"
+                    class="w-[35px] h-[35px] text-gray-500 dark:text-white mb-2"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 24 24"
                 >
                     <path
-                        d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z"
+                        fill-rule="evenodd"
+                        d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z"
+                        clip-rule="evenodd"
                     />
                 </svg>
-                <a href="#">
-                    <h5
-                        class="mb-2 text-2xl lg:text-5xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                    >
-                        {{ $booksAll }}
-                    </h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
-                    Buku Terdaftar
-                </p>
-                <a
-                    href="#"
-                    class="inline-flex font-medium items-center text-blue-600 hover:underline"
-                >
-                    Lihat Selengkapnya
-                    <svg
-                        class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 18 18"
-                    >
-                        <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"
+            </x-card-stats>
+        </div>
+
+        <div class="sm:rounded-lg mt-12">
+            <!-- add data -->
+            <div class="flex justify-between items-center mb-4 w-full">
+                <h1>Overview Data Peminjaman Buku</h1>
+                <form class="flex items-center max-w-lg" method="GET">
+                    <label for="voice-search" class="sr-only">Search</label>
+                    <div class="w-full">
+                        <input
+                            name="search"
+                            type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Cari data buku..."
                         />
-                    </svg>
-                </a>
+                    </div>
+                    <button
+                        type="submit"
+                        class="flex items-center justify-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        <svg
+                            class="w-4 h-4"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                            />
+                        </svg>
+                    </button>
+                </form>
             </div>
         </div>
-         <div class="sm:rounded-lg mt-12">
-                <!-- add data -->
-                <div class="flex justify-between items-center mb-4 w-full">
-                        <h1>Overview Data Peminjaman Buku</h1>
-                        <form class="flex items-center max-w-lg" method="GET">
-                            <label for="voice-search" class="sr-only">
-                                Search
-                            </label>
-                            <div class="w-full">
-                                <input
-                                    name="search"
-                                    type="text"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Cari data buku..."
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                class="flex items-center justify-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                                <svg
-                                    class="w-4 h-4"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                                    />
-                                </svg>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <x-table :pagination="$loans">
-                    <x-slot:header>
-                        <th scope="col" class="px-6 py-3">Judul Buku</th>
-                        <th scope="col" class="px-6 py-3">Nama siswa</th>
-                        <th scope="col" class="px-6 py-3">Tanggal Meminjam</th>
-                        <th scope="col" class="px-6 py-3">
-                            Tanggal Jatuh Tempo
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Tanggal Pengembalian
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Jumlah Hari Terlambat
-                        </th>
-                        <th scope="col" class="px-6 py-3">Status Peminjaman</th>
-                  
-                    </x-slot>
-                    @forelse ($loans as $loan)
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+
+        <x-table :pagination="$loans">
+            <x-slot:header>
+                <th scope="col" class="px-6 py-3">Judul Buku</th>
+                <th scope="col" class="px-6 py-3">Nama siswa</th>
+                <th scope="col" class="px-6 py-3">Tanggal Meminjam</th>
+                <th scope="col" class="px-6 py-3">Tanggal Jatuh Tempo</th>
+                <th scope="col" class="px-6 py-3">Tanggal Pengembalian</th>
+                <th scope="col" class="px-6 py-3">Jumlah Hari Terlambat</th>
+                <th scope="col" class="px-6 py-3">Status Peminjaman</th>
+                <th scope="col" class="px-6 py-3">Aksi</th>
+            </x-slot>
+
+            @forelse ($loans as $loan)
+                <tr
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
+                    <!-- Title -->
+                    <th
+                        scope="row"
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                        {{ $loan->book->title }}
+                    </th>
+
+                    <!-- Student Name -->
+                    <td class="px-6 py-4">
+                        {{ $loan->student->name }}
+                    </td>
+
+                    <!-- loan_date-->
+                    <td class="px-6 py-4">
+                        {{ \Carbon\Carbon::parse($loan->loan_date)->format("d-m-Y") }}
+                    </td>
+
+                    <!-- due_date -->
+                    <td class="px-6 py-4">
+                        {{ \Carbon\Carbon::parse($loan->due_date)->format("d-m-Y") }}
+                    </td>
+
+                    <!-- Return Date -->
+                    <td class="px-6 py-4">
+                        {{ \Carbon\Carbon::parse($loan->return_date)->format("d-m-Y") }}
+                    </td>
+
+                    <!-- late days -->
+                    <td class="px-6 py-4">{{ $loan->late_days }} Hari</td>
+
+                    <!-- status -->
+                    <td class="px-6 py-4">
+                        {{ $loan->status === "borrowed" ? "Dipinjam" : ($loan->status === "returned" ? "Dikembalikan" : ($loan->status === "returned_late" ? "Dikembalikan Terlambat" : "Terlambat")) }}
+                    </td>
+
+                    <td class="px-6 py-4">
+                        <a
+                            class="inline-flex font-medium items-center text-blue-600 hover:underline"
+                            href="{{ route("books-loan.index", ["search" => $loan->id]) }}"
                         >
-                            <!-- Title -->
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            Selengkapnya
+                            <svg
+                                class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 18 18"
                             >
-                                {{ $loan->book->title }}
-                            </th>
-
-                            <!-- Student Name -->
-                            <td class="px-6 py-4">
-                                {{ $loan->student->name }}
-                            </td>
-
-                            <!-- loan_date-->
-                            <td class="px-6 py-4">
-                                {{ \Carbon\Carbon::parse($loan->loan_date)->format("d-m-Y") }}
-                            </td>
-
-                            <!-- due_date -->
-                            <td class="px-6 py-4">
-                                {{ \Carbon\Carbon::parse($loan->due_date)->format("d-m-Y") }}
-                            </td>
-
-                            <!-- Return Date -->
-                            <td class="px-6 py-4">
-                                {{ \Carbon\Carbon::parse($loan->return_date)->format("d-m-Y") }}
-                            </td>
-
-                            <!-- late days -->
-                            <td class="px-6 py-4">
-                                {{ $loan->late_days }} Hari
-                            </td>
-
-                            <!-- status -->
-                            <td class="px-6 py-4">
-                                {{ $loan->status === "borrowed" ? "Dipinjam" : ($loan->status === "returned" ? "Dikembalikan" : ($loan->status === "returned_late" ? "Dikembalikan Terlambat" : "Terlambat")) }}
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td
-                                colspan="7"
-                                class="text-center px-6 py-4 text-gray-500"
-                            >
-                                Tidak ada data siswa.
-                            </td>
-                        </tr>
-                    @endforelse
-                </x-table>
-            </div>
+                                <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"
+                                />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7" class="text-center px-6 py-4 text-gray-500">
+                        Tidak ada data siswa.
+                    </td>
+                </tr>
+            @endforelse
+        </x-table>
     </div>
 </x-app-layout>
