@@ -16,7 +16,7 @@ class OverviewController extends Controller
         $booksAll = Books::count();
         $booksLoanAll   = BookLoan::where('status', 'borrowed')->count();
         $studentsAll = Student::count();
-
+        $visitorAll = BookLoan::count();
 
 
         // search and pagination
@@ -37,7 +37,7 @@ class OverviewController extends Controller
         ->orderByDesc('created_at'  )
         ->paginate(10);
 
-        return view('dashboard', compact('loans', 'search' , 'booksAll' , 'booksLoanAll' , 'studentsAll'));
+        return view('dashboard', compact('loans', 'search' , 'booksAll' , 'booksLoanAll' , 'studentsAll' , 'visitorAll'));
     }
 
 }
