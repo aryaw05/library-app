@@ -33,15 +33,30 @@ Route::middleware('auth' , 'verified')->group(function () {
 
 
 
-    // books loan routes 
+    // books loan routes  
     Route::resource('books-loan', BooksLoanController::class);
+    Route::get('/export-books-loan', [BooksLoanController::class, 'export'])->name('loans.export');
 
 
-// books loan return routes
+
+
+
+    // books loan return routes
     Route::put('/books-loan/{books_loan}/return', [BooksLoanController::class, 'return'])->name('books-loan.return');
 });
-
-
     // books late
 Route::get('/books-late' , [BooksLateController::class, 'index'])->name('books-late');
+
+
+
+    // exports
+    Route::get('/export-books', [BooksController::class, 'export'])->name('books.export');
+    Route::get('/export-students', [StudentController::class, 'export'])->name('students.export');
+    Route::get('/export-visitors', [BooksLoanController::class, 'visitorsExport'])->name('visitors.export');
+
+
+    // reports
+    Route::get('/dashboard/reports' , [OverviewController::class, 'reports'])->name('reports');
+
+
 require __DIR__.'/auth.php';
