@@ -2,38 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BooksLoanExport;
+use App\Exports\visitorExport;
 use App\Models\BookLoan;
 use App\Models\Books;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BooksLoanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-public function index(Request $request)
-{
-    $search = $request->query('search');
+    public function index(Request $request)
+    {
+        $search = $request->query('search');
 
-    $loans = BookLoan::with(['book', 'student'])
-        ->when($search, function ($query, $search) {
-            $query->where(function ($q) use ($search) {
-                $q->whereHas('book', function ($bookQuery) use ($search) {
-                    $bookQuery->where('title', 'like', "%{$search}%");
-                })
-                ->orWhereHas('student', function ($studentQuery) use ($search) {
-                    $studentQuery->where('name', 'like', "%{$search}%");
-                })
-                ->orWhere('status', 'like', "%{$search}%");
-            });
-        })
-        ->orderByDesc('created_at'  )
-        ->paginate(10);
+        $loans = BookLoan::with(['book', 'student'])
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->whereHas('book', function ($bookQuery) use ($search) {
+                        $bookQuery->where('title', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('student', function ($studentQuery) use ($search) {
+                        $studentQuery->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhere('status', 'like', "%{$search}%")
+                    ->orWhere('id', 'like', "%{$search}%");
+                });
+            })
+            ->orderByDesc('created_at'  )
+            ->paginate(10);
 
-    return view('dashboard.books_loan.books-loan', compact('loans', 'search'));
-}
+        return view('dashboard.books_loan.books-loan', compact('loans', 'search'));
+    }
 
 
     /**
@@ -136,5 +140,17 @@ public function index(Request $request)
 
         return redirect()->route('books-loan.index')
             ->with('success', 'Buku berhasil dikembalikan.');
+    }
+
+
+    public function export()
+    {
+        return Excel::download(new BooksLoanExport, 'Peminjaman_buku.xlsx');
+    }
+    
+
+    public function visitorsExport()
+    {
+        return Excel::download(new visitorExport, 'Pengunjung.xlsx');
     }
 }
