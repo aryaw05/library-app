@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentsExport;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
@@ -108,5 +109,12 @@ class StudentController extends Controller
             Excel::import(new StudentsImport, $request-> file('file'));
 
             return redirect()->back()->with('success', 'Data siswa berhasil diimport.');
+    }
+
+
+
+    public function export()
+    {
+        return Excel::download(new StudentsExport, 'Data_siswa.xlsx');
     }
 }
