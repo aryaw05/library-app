@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BooksExport;
 use App\Models\Books;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BooksController extends Controller
 {
@@ -92,5 +94,11 @@ class BooksController extends Controller
 
         return redirect()->back()
             ->with('success', 'Data buku berhasil dihapus.');
+    }
+
+
+        public function export()
+    {
+        return Excel::download(new BooksExport, 'Data_buku.xlsx');
     }
 }
