@@ -78,16 +78,16 @@
             <!-- Book Code -->
             <div class="col-span-2 sm:col-span-1">
                 <label
-                    for="book_code"
+                    for="category"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                    Kode Buku
+                    Kategori
                 </label>
                 <input
                     type="text"
-                    name="book_code"
-                    id="book_code"
-                    placeholder="Contoh: B001"
+                    name="category"
+                    id="category"
+                    placeholder="Contoh: Fiksi"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                 />
             </div>

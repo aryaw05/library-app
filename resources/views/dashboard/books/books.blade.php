@@ -57,7 +57,7 @@
                 <th scope="col" class="px-6 py-3">Author</th>
                 <th scope="col" class="px-6 py-3">Tahun</th>
                 <th scope="col" class="px-6 py-3">Stock</th>
-                <th scope="col" class="px-6 py-3">Kode Buku</th>
+                <th scope="col" class="px-6 py-3">Kategori</th>
                 <th scope="col" class="px-6 py-3">Aksi</th>
             </x-slot>
             @forelse ($books as $book)
@@ -89,7 +89,7 @@
 
                     <!-- book code -->
                     <td class="px-6 py-4">
-                        {{ $book->book_code }}
+                        {{ $book->category }}
                     </td>
 
                     <!-- Tombol Aksi -->
@@ -101,7 +101,7 @@
                             data-author="{{ $book->author }}"
                             data-year="{{ $book->year }}"
                             data-stock="{{ $book->stock }}"
-                            data-book_code="{{ $book->book_code }}"
+                            data-category="{{ $book->category }}"
                             data-action="{{ route("books.update", $book->id) }}"
                             type="button"
                             class="btn-edit font-medium text-blue-600 dark:text-blue-500 hover:underline"
