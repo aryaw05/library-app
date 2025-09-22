@@ -4,6 +4,9 @@
             {{ __("Data Siswa") }}
         </h2>
     </x-slot>
+    @if (session("success"))
+        <x-success-toast :message="session('success')" />
+    @endif
 
     <div class="sm:rounded-lg">
         <!-- add data -->
@@ -69,6 +72,7 @@
                 <th scope="col" class="px-6 py-3">Alamat</th>
                 <th scope="col" class="px-6 py-3">Email</th>
                 <th scope="col" class="px-6 py-3">No. Telepon</th>
+                <th scope="col" class="px-6 py-3">Tanggal Lahir</th>
                 <th scope="col" class="px-6 py-3">Aksi</th>
             </x-slot>
             @forelse ($students as $student)
@@ -95,7 +99,7 @@
 
                     <!-- Gender -->
                     <td class="px-6 py-4">
-                        {{ $student->gender === "M" ? "Laki-laki" : ($student->gender === "F" ? "Perempuan" : "-") }}
+                        {{ $student->gender ?? "-" }}
                     </td>
 
                     <!-- Alamat -->
@@ -112,14 +116,27 @@
                     <td class="px-6 py-4">
                         {{ $student->phone ?? "-" }}
                     </td>
-
+                    <!-- Tanggal Lahir -->
+                    <td class="px-6 py-4">
+                        {{ $student->birth_date ? \Carbon\Carbon::parse($student->birth_date)->format("d-m-Y") : "-" }}
+                    </td>
                     <!-- Tombol Aksi -->
                     <td class="px-6 py-4 flex gap-4 items-center">
-                        <a
+                        <button
+                            data-modal-target="crud-modal-edit"
+                            data-modal-toggle="crud-modal-edit"
+                            data-name="{{ $student->name }}"
+                            data-nis="{{ $student->nis }}"
+                            data-class="{{ $student->class }}"
+                            data-gender="{{ $student->gender }}"
+                            data-address="{{ $student->address }}"
+                            data-birth_date="{{ $student->birth_date }}"
+                            data-email="{{ $student->email }}"
+                            data-phone="{{ $student->phone }}"
                             type="button"
                             class="btn-edit font-medium text-blue-600 dark:text-blue-500 hover:underline"
                             aria-hidden="true"
-                            href="{{ route("students.edit", $student->id) }}"
+                            data-action="{{ route("students.update", $student->id) }}"
                         >
                             <svg
                                 class="w-6 h-6 text-gray-800 dark:text-white"
@@ -138,7 +155,7 @@
                                     d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
                                 />
                             </svg>
-                        </a>
+                        </button>
 
                         <form
                             action="{{ route("students.destroy", $student->id) }}"
@@ -180,6 +197,8 @@
     <!-- Modal for add data -->
     @include("dashboard.students.partials.add-form")
 
+    <!-- Modal for edit data -->
+    @include("dashboard.students.partials.update-form")
     <!-- Modal for import excel -->
     @include("dashboard.students.partials.import-excel")
 </x-app-layout>
