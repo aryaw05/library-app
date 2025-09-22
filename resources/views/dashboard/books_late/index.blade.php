@@ -6,6 +6,7 @@
     </x-slot>
     <div class="sm:rounded-lg">
         <div class="flex justify-between items-center mb-4 w-full">
+            <a href="{{ route("late.export") }}">Export Data</a>
             <form class="flex items-center max-w-lg" method="GET">
                 <label for="voice-search" class="sr-only">Search</label>
                 <div class="w-full">
