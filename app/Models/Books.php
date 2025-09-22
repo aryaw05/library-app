@@ -12,6 +12,6 @@ class Books extends Model
         'author',
         'year',
         'stock',
-        'book_code',
+        'category',
     ];
 }
