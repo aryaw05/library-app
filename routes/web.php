@@ -53,10 +53,11 @@ Route::get('/books-late' , [BooksLateController::class, 'index'])->name('books-l
     Route::get('/export-books', [BooksController::class, 'export'])->name('books.export');
     Route::get('/export-students', [StudentController::class, 'export'])->name('students.export');
     Route::get('/export-visitors', [BooksLoanController::class, 'visitorsExport'])->name('visitors.export');
+    Route::get('/export-late', [BooksLoanController::class, 'lateExport'])->name('late.export');
 
 
     // reports
-    Route::get('/dashboard/reports' , [OverviewController::class, 'reports'])->name('reports');
+    // Route::get('/dashboard/reports' , [OverviewController::class, 'reports'])->name('reports');
 
 
 require __DIR__.'/auth.php';
