@@ -1,4 +1,4 @@
-<div class="fixed top-0 right-0 p-4">
+<div class="fixed top-0 right-0 p-4 z-50">
     <div
         id="toast-success"
         class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
@@ -46,3 +46,16 @@
         </button>
     </div>
 </div>
+<script>
+    setTimeout(() => {
+        const toast = document.getElementById('toast-success');
+        if (toast) {
+            toast.classList.add(
+                'opacity-0',
+                'transition-opacity',
+                'duration-500',
+            );
+            setTimeout(() => toast.remove(), 500);
+        }
+    }, 3000);
+</script>

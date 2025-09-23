@@ -44,3 +44,16 @@
         </svg>
     </button>
 </div>
+<script>
+    setTimeout(() => {
+        const toast = document.getElementById('toast-danger');
+        if (toast) {
+            toast.classList.add(
+                'opacity-0',
+                'transition-opacity',
+                'duration-500',
+            );
+            setTimeout(() => toast.remove(), 500); 
+        }
+    }, 3000);
+</script>
