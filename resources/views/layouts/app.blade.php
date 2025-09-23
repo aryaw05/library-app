@@ -22,8 +22,15 @@
             <x-success-toast :message="session('success')" />
         @endif
 
-        @if (session("error"))
-            <x-error-toast :message="session('error')" />
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="fixed top-0 right-0 z-50 p-4">
+                    <x-error-toast
+                        :message="$error"
+                        :id="'toast-danger-' . $loop->index"
+                    />
+                </div>
+            @endforeach
         @endif
 
         <div class="antialiased bg-gray-50 dark:bg-gray-900">
@@ -32,7 +39,7 @@
             <main class="p-4 md:ml-64 h-auto pt-20">
                 <!-- Page Heading -->
                 @isset($header)
-                    <header class="col-span-full">
+                    <header class="col-span-full lg:mb-8 mb-10">
                         {{ $header }}
                     </header>
                 @endisset
