@@ -1,4 +1,4 @@
-<x-modal-form id="edit-modal-book">
+<x-modal-form id="edit-modal-book" title="Edit Data Buku">
     <form method="POST" class="p-4 md:p-5" id="editForm" action="">
         @method("PUT")
         @csrf

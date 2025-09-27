@@ -1,4 +1,4 @@
-<x-modal-form id="crud-modal-book">
+<x-modal-form id="crud-modal-book" title="Tambah Data Buku">
     <form method="POST" action="{{ route("books.store") }}" class="p-4 md:p-5">
         @csrf
         <div class="grid gap-4 mb-4 grid-cols-2">

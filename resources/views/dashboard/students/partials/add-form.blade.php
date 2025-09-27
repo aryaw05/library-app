@@ -1,4 +1,4 @@
-<x-modal-form id="crud-modal">
+<x-modal-form id="crud-modal" title="Tambah Data Siswa">
     <form
         method="POST"
         action="{{ route("students.store") }}"

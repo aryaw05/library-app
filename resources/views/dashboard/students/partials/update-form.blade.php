@@ -1,11 +1,5 @@
-divdivdivdivdivdiv
 <x-modal-form id="crud-modal-edit">
-    <form
-        method="POST"
-        id="editForm"
-        class="p-4 md:p-5"
-        action="{{ route("students.update", $student->id) }}"
-    >
+    <form method="POST" id="editForm" class="p-4 md:p-5" action="">
         @csrf
         @method("PUT")
         <div class="grid gap-4 mb-4 grid-cols-2">
