@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\BooksLoanExport;
+use App\Exports\booksLoanLateExport;
 use App\Exports\visitorExport;
 use App\Models\BookLoan;
 use App\Models\Books;
@@ -73,8 +74,10 @@ class BooksLoanController extends Controller
             $book   = Books::findOrFail($validatedData['book_id']);
 
             if($book->stock <= 0){
-                return  redirect()->back()->withErrors( 'Stok buku tidak tersedia.')->withInput();
-            }
+            return redirect()->back()
+            ->withErrors(['stock' => 'Stok buku tidak tersedia.'])
+            ->withInput();
+}
                 
             $book->decrement('stock');
 
@@ -152,5 +155,10 @@ class BooksLoanController extends Controller
     public function visitorsExport()
     {
         return Excel::download(new visitorExport, 'Pengunjung.xlsx');
+    }
+
+    public function lateExport()
+    {
+        return Excel::download(new booksLoanLateExport, 'Peminjaman_buku_terlambat.xlsx');
     }
 }
