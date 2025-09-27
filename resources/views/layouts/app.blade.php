@@ -36,7 +36,7 @@
         <div class="antialiased bg-gray-50 dark:bg-gray-900">
             @include("layouts.sidebar")
             <x-navbar />
-            <main class="p-4 md:ml-64 h-auto pt-20">
+            <main class="p-4 md:ml-64 min-h-screen pt-20">
                 <!-- Page Heading -->
                 @isset($header)
                     <header class="col-span-full lg:mb-8 mb-10">
@@ -50,5 +50,6 @@
                 </main>
             </main>
         </div>
+        @stack("scripts")
     </body>
 </html>
