@@ -37,15 +37,19 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $data =  $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
             'year' => 'nullable|integer|min:0',
             'stock' => 'nullable|integer|min:0',
-            'book_code' => 'nullable|unique:books,book_code|max:50',
+            'category' => 'nullable|string|max:50',
         ]);
 
-        Books::create($request->all());
+        if (!empty($data['category'])) {
+       $data['category'] = strtolower($data['category']);
+    
+    }
+        Books::create($data);
 
         return redirect()->back()
             ->with('success', 'Data buku berhasil ditambahkan.');
@@ -72,14 +76,18 @@ class BooksController extends Controller
      */
     public function update(Request $request, Books $book)
     {
-        $request->validate([
+       $data =  $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
             'year' => 'nullable|integer|min:0',
             'stock' => 'nullable|integer|min:0',
-            'book_code' => 'nullable|unique:books,book_code,'.$book->id.'|max:50',
+            'category' => 'nullable|string|max:50',
         ]);
-        $book->update($request->all());
+
+        if (!empty($data['category'])) {
+       $data['category'] = strtolower($data['category']);
+        }
+        $book->update($data);
 
         return redirect()->back()
             ->with('success', 'Data buku berhasil diperbarui.');
@@ -99,6 +107,7 @@ class BooksController extends Controller
 
         public function export()
     {
-        return Excel::download(new BooksExport, 'Data_buku.xlsx');
+        Excel::download(new BooksExport, 'Data_buku.xlsx');
+        return redirect()->back()->with('success', 'Data buku berhasil diexport.');
     }
 }

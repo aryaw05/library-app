@@ -67,8 +67,8 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-         $student = Student::findOrFail($id);
-        return view('dashboard.students.partials.update-form', compact('student'));
+        //  $student = Student::findOrFail($id);
+        // return view('dashboard.students.partials.update-form', compact('student'));
     }
 
     /**
@@ -80,7 +80,7 @@ class StudentController extends Controller
             'nis' => 'required|max:20|unique:students,nis,' . $student->id,
             'name' => 'required|max:100',
             'class' => 'required|max:50',
-            'gender' => 'nullable|in:M,F',
+            'gender' => 'nullable|string|max:10',
             'birth_date' => 'nullable|date',
         ]);
 
