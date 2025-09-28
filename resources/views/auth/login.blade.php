@@ -5,6 +5,15 @@
     <form method="POST" action="{{ route("login") }}">
         @csrf
 
+        <div class="flex items-center flex-col lg:gap-8 md:gap-5 gap-3">
+            <img src="{{ asset("images/logo.png") }}" class="w-24 h-auto" />
+            <div class="mb-6 text-center">
+                <h1 class="text-2xl font-extrabold">Selamat Datang Kembali</h1>
+                <p class="text-sm text-gray-400">
+                    Silahkan masukkan username dan password
+                </p>
+            </div>
+        </div>
         <!-- username -->
         <div>
             <x-input-label for="username" :value="__('Username')" />
