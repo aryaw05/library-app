@@ -19,7 +19,6 @@ Route::middleware('auth' , 'verified')->group(function () {
     // auth routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // student routes
     Route::resource('students', StudentController::class);
@@ -58,6 +57,9 @@ Route::get('/books-late' , [BooksLateController::class, 'index'])->name('books-l
 
     // reports
     // Route::get('/dashboard/reports' , [OverviewController::class, 'reports'])->name('reports');
+
+    // tutorial
+    Route::get('/tutorial' , [OverviewController::class, 'tutorial'])->name('tutorial');
 
 
 require __DIR__.'/auth.php';

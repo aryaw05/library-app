@@ -40,4 +40,9 @@ class OverviewController extends Controller
         return view('dashboard', compact('loans', 'search' , 'booksAll' , 'booksLoanAll' , 'studentsAll' , 'visitorAll'));
     }
 
+
+    public function tutorial()
+    {
+        return view('dashboard.tutorial.index');
+    }
 }
