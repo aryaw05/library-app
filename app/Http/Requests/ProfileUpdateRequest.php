@@ -16,15 +16,24 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => [
+            'username' => [
                 'required',
                 'string',
-                'lowercase',
-                'email',
+                'min:3',
                 'max:255',
+                'alpha_dash',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+        ];
+    }
+
+     public function messages(): array
+    {
+        return [
+            'username.required' => 'Username wajib diisi.',
+            'username.min' => 'Username minimal 3 karakter.',
+            'username.alpha_dash' => 'Username hanya boleh berisi huruf, angka, dash, dan underscore.',
+            'username.unique' => 'Username sudah digunakan.',
         ];
     }
 }
