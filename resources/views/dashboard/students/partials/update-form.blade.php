@@ -1,4 +1,4 @@
-<x-modal-form id="crud-modal-edit">
+<x-modal-form id="crud-modal-edit" title="Edit Data Siswa">
     <form method="POST" id="editForm" class="p-4 md:p-5" action="">
         @csrf
         @method("PUT")
@@ -158,7 +158,7 @@
                     clip-rule="evenodd"
                 ></path>
             </svg>
-            Update Siswa
+            Edit Siswa
         </button>
     </form>
 </x-modal-form>

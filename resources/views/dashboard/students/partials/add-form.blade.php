@@ -65,17 +65,15 @@
                     for="gender"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                    Gender
+                    Jenis Kelamin
                 </label>
-                <select
-                    id="gender"
+                <input
+                    type="text"
                     name="gender"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                >
-                    <option value="">Pilih Gender</option>
-                    <option value="M">Laki-laki</option>
-                    <option value="F">Perempuan</option>
-                </select>
+                    id="gender"
+                    placeholder="Laki-laki / Perempuan"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                />
             </div>
 
             <!-- Birth Date -->

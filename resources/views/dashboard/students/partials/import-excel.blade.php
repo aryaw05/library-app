@@ -5,13 +5,12 @@
         method="POST"
         enctype="multipart/form-data"
     >
-
         @csrf
-        
+
         <div class="flex items-center justify-center w-full">
             <label
                 for="dropzone-file"
-                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500"
             >
                 <div
                     class="flex flex-col items-center justify-center pt-5 pb-6"
@@ -39,10 +38,25 @@
                         XLSX, CSV , or ODS (MAX. 2MB)
                     </p>
                 </div>
-                <input id="dropzone-file" type="file" class="hidden" name="file" />
+                <input
+                    id="dropzone-file"
+                    type="file"
+                    class="hidden"
+                    name="file"
+                />
             </label>
         </div>
-
+        <div>
+            <p>
+                Untuk format file silahkan lihat tutorial di
+                <a
+                    href=""
+                    target="_blank"
+                    class="text-blue-600 hover:underline"
+                    >sini</a
+                .
+            </p>
+        </div>
         <x-primary-button class="mt-4 w-full justify-center">
             Import File
         </x-primary-button>
