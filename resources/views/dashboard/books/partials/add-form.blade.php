@@ -110,7 +110,7 @@
                     clip-rule="evenodd"
                 ></path>
             </svg>
-            Tambah Siswa
+            Tambah Buku
         </button>
     </form>
 </x-modal-form>

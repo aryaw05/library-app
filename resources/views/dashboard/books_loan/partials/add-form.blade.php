@@ -29,6 +29,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         required
                     >
+                        <option value="">Cari Nama Buku...</option>
                         @foreach ($books as $id => $title)
                             <option value="{{ $id }}">{{ $title }}</option>
                         @endforeach
@@ -47,9 +48,10 @@
                         name="student_id"
                         id="student_id_add"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Cari Nama Siswa..."
                         required
                     >
-                      
+                        <option value="">Cari Nama Siswa...</option>
 
                         @foreach ($students as $id => $name)
                             <option value="{{ $id }}">{{ $name }}</option>

@@ -50,7 +50,7 @@
             <p>
                 Untuk format file silahkan lihat tutorial di
                 <a
-                    href=""
+                    href="/tutorial"
                     target="_blank"
                     class="text-blue-600 hover:underline"
                     >sini</a

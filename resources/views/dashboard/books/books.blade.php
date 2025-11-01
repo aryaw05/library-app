@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __("Data Buku") }}
+        <h2 class="font-semibold text-3xl text-gray-800 leading-tight">
+            {{ __("📚 Data Buku") }}
         </h2>
     </x-slot>
 
@@ -31,7 +31,6 @@
                     />
                 </div>
                 <button
-                    name="search"
                     type="submit"
                     class="flex items-center justify-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
