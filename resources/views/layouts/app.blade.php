@@ -23,14 +23,16 @@
         @endif
 
         @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <div class="fixed top-0 right-0 z-50 p-4">
-                    <x-error-toast
-                        :message="$error"
-                        :id="'toast-danger-' . $loop->index"
-                    />
+            <div class="fixed top-0 right-0 z-50 p-4">
+                <div class="space-y-2">
+                    @foreach ($errors->all() as $error)
+                        <x-error-toast
+                            :message="$error"
+                            :id="'toast-danger-' . $loop->index"
+                        />
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
         @endif
 
         <div class="antialiased bg-gray-50 dark:bg-gray-900">
