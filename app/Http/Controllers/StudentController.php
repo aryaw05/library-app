@@ -7,7 +7,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class StudentController extends Controller
 {
@@ -43,7 +43,10 @@ class StudentController extends Controller
             'nis' => 'required|unique:students,nis|max:20',
             'name' => 'required|max:100',
             'class' => 'required|max:50',
-            'gender' => 'nullable|in:M,F',
+            'address' => 'nullable|max:255',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'nullable|max:20',
+            'gender' => 'nullable|string|max:10',
             'birth_date' => 'nullable|date',
 
         ]);
@@ -81,6 +84,9 @@ class StudentController extends Controller
             'name' => 'required|max:100',
             'class' => 'required|max:50',
             'gender' => 'nullable|string|max:10',
+            'address' => 'nullable|max:255',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'nullable|max:20',
             'birth_date' => 'nullable|date',
         ]);
 
@@ -100,16 +106,33 @@ class StudentController extends Controller
             ->with('success', 'Data siswa berhasil dihapus.');
     }
 
-    public function import (Request $request)
-    {
-            $request->validate([
-                'file' => 'required|mimes:csv,xls,xlsx',
-            ]);
+   public function import(Request $request)
+{
+    $request->validate([
+        'file' => 'required|mimes:xlsx,csv,xls',
+    ]);
 
-            Excel::import(new StudentsImport, $request-> file('file'));
+    $import = new StudentsImport();
+    Excel::import($import, $request->file('file'));
 
-            return redirect()->back()->with('success', 'Data siswa berhasil diimport.');
+    // $rows = Excel::toCollection(new StudentsImport, $request->file('file'));
+    // dd($rows);
+
+    $failures = $import->failures();
+    $totalFailed = $failures->count();
+
+    $messages = [];
+    foreach ($failures as $failure) {
+        $messages[] = "❌ Baris {$failure->row()} - Kolom: {$failure->attribute()} → " . implode(', ', $failure->errors());
     }
+
+    if ($totalFailed > 0) {
+        return back()->withErrors($messages)
+                     ->with('success', 'Sebagian data berhasil diimport. ' . $totalFailed . ' baris gagal diproses.');
+    }
+
+    return back()->with('success', '✅ Semua data siswa berhasil diimport tanpa error.');
+}
 
 
 
