@@ -3,6 +3,3 @@
 >
     {{ $slot }}
 </button>
-<!-- <button type="button" class="">
-    {{ $slot }}
-</button> -->

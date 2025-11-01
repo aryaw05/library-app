@@ -6,7 +6,7 @@
         <div>
             <a href="{{ $downloadLink }}">
                 <svg
-                    class="w-6 h-6 text-gray-500 dark:text-white"
+                    class="w-6 h-6 text-blue-700 dark:text-blue-400"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -24,7 +24,7 @@
         </div>
     </div>
     <h5
-        class="mb-2 text-2xl lg:text-5xl font-semibold tracking-tight text-gray-900 dark:text-white"
+        class="mb-2 text-5xl lg:text-5xl font-semibold tracking-tight text-gray-900 dark:text-white"
     >
         {{ $stats }}
     </h5>

@@ -1,5 +1,5 @@
 <nav
-    class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50"
+    class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-40"
 >
     <div class="flex flex-wrap justify-between items-center">
         <div class="flex justify-start items-center">
@@ -37,58 +37,48 @@
                 </svg>
                 <span class="sr-only">Toggle sidebar</span>
             </button>
-            <a
-                href="https://flowbite.com"
-                class="flex items-center justify-between mr-4"
-            >
+            <a href="/" class="flex items-center justify-between mr-4">
                 <img
-                    src="https://flowbite.s3.amazonaws.com/logo.svg"
-                    class="mr-3 h-8"
+                    src="{{ asset("images/logo.png") }}"
+                    class="mr-3 h-10"
                     alt="Flowbite Logo"
                 />
                 <span
                     class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
                 >
-                    Flowbite
+                    E-Library
                 </span>
             </a>
         </div>
         <div class="flex items-center lg:order-2">
+            <span class="text-sm hidden md:block">
+                {{ \Carbon\Carbon::now("Asia/Jakarta")->locale("id")->translatedFormat("l, d F Y H:i") }}
+                WIB
+            </span>
+
             <button
                 type="button"
-                data-drawer-toggle="drawer-navigation"
-                aria-controls="drawer-navigation"
-                class="p-2 mr-1 text-gray-500 rounded-lg md:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            >
-                <span class="sr-only">Toggle search</span>
-                <svg
-                    aria-hidden="true"
-                    class="w-6 h-6"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                >
-                    <path
-                        clip-rule="evenodd"
-                        fill-rule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    ></path>
-                </svg>
-            </button>
-            <button
-                type="button"
-                class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                class="flex mx-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                 id="user-menu-button"
                 aria-expanded="false"
                 data-dropdown-toggle="dropdown"
             >
                 <span class="sr-only">Open user menu</span>
-                <img
-                    class="w-8 h-8 rounded-full"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
-                    alt="user photo"
-                />
+                <svg
+                    class="w-[32px] h-[32px] text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
             </button>
             <!-- Dropdown menu -->
             <div
@@ -108,7 +98,7 @@
                 >
                     <li>
                         <a
-                          href="{{ route("profile.edit") }}"
+                            href="{{ route("profile.edit") }}"
                             class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
                         >
                             Account settings
