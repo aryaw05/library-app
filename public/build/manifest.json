@@ -15,5 +15,14 @@
     "css": [
       "assets/app-DQKaNtan.css"
     ]
+  },
+  "resources/js/home.js": {
+    "file": "assets/home-Ba-Shekq.js",
+    "name": "home",
+    "src": "resources/js/home.js",
+    "isEntry": true,
+    "css": [
+      "assets/home-DvB2Xm2x.css"
+    ]
   }
 }
