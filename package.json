@@ -19,7 +19,9 @@
         "vite": "^7.0.4"
     },
     "dependencies": {
+        "aos": "^2.3.4",
         "flowbite": "^3.1.2",
-        "prettier-plugin-blade": "^2.1.21"
+        "prettier-plugin-blade": "^2.1.21",
+        "tom-select": "^2.4.3"
     }
 }
