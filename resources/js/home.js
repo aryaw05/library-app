@@ -6,15 +6,25 @@ AOS.init();
 window.addEventListener("scroll", function () {
     const header = document.getElementById("navbar");
     const navTextElements = document.querySelectorAll(".nav-text");
+    const burger = document.querySelectorAll(".burger");
     if (window.scrollY > 50) {
         header.classList.add("shadow-lg", "bg-white", "dark:bg-gray-900");
-        navTextElements.forEach((el) => {
+
+        burger.forEach((el) => {
             el.classList.remove("text-white");
+            el.classList.add("text-gray-900", "dark:text-white");
+        });
+        navTextElements.forEach((el) => {
+            el.classList.remove("md:text-white");
             el.classList.add("text-gray-900", "dark:text-white");
         });
     } else {
         header.classList.remove("shadow-lg", "bg-white", "dark:bg-gray-900");
         navTextElements.forEach((el) => {
+            el.classList.remove("text-gray-900", "dark:text-white");
+            el.classList.add("md:text-white");
+        });
+        burger.forEach((el) => {
             el.classList.remove("text-gray-900", "dark:text-white");
             el.classList.add("text-white");
         });
