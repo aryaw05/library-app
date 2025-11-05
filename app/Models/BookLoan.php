@@ -15,6 +15,7 @@ class BookLoan extends Model
         'due_date',
         'status',
         'late_days',
+        'fine',
 
 
         
