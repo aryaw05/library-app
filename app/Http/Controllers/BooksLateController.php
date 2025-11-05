@@ -11,7 +11,7 @@ class BooksLateController extends Controller
     $search = $request->query('search');
 
     $loans = BookLoan::with(['book', 'student'])
-        ->whereIn('status', ['returned_late', 'borrowed'])
+        ->whereIn('status', ['returned_late'])
         ->when($search, function ($query, $search) {
             $query->where(function ($q) use ($search) {
                 $q->whereHas('book', function ($bookQuery) use ($search) {
