@@ -122,7 +122,7 @@
                         <li>
                             <a
                                 href="#"
-                                class="block py-2 px-3 md:p-0 text-white rounded-sm md:bg-transparent md:text-white nav-text text-black"
+                                class="block py-2 px-3 md:p-0 rounded-sm md:bg-transparent md:text-white nav-text text-black"
                                 aria-current="page"
                             >
                                 Home
@@ -501,7 +501,7 @@
             </section>
         </main>
 
-        <footer class="p-4 bg-gray-50 sm:p-6 dark:bg-gray-800">
+        <footer class="p-4 bg-gray-50 sm:p-6 dark:bg-gray-700">
             <div class="mx-auto max-w-screen-xl">
                 <div class="md:flex md:justify-between items-center">
                     <div class="mb-6 md:mb-0 flex flex-col">
