@@ -108,6 +108,6 @@ class BooksController extends Controller
         public function export()
     {
         Excel::download(new BooksExport, 'Data_buku.xlsx');
-        return redirect()->back()->with('success', 'Data buku berhasil diexport.');
+      
     }
 }
