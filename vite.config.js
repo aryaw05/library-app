@@ -9,7 +9,6 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/js/home.js",
             ],
-            buildDirectory: "build",
             refresh: true,
         }),
     ],
