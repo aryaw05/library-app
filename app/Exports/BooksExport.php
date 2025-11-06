@@ -13,7 +13,7 @@ class BooksExport implements FromCollection , WithHeadings
     */
     public function collection()
     {
-          return Books::select( "title", "author" , 'year' , 'stock' ,'book_code')->get();
+          return Books::select( "title", "author" , 'year' , 'stock'  , 'category')->get();
 
     }
 
@@ -25,7 +25,7 @@ class BooksExport implements FromCollection , WithHeadings
             'Penulis',
             'Tahun Terbit',
             'Stok',
-            'Kode Buku',
+            'Kategori',
         ];
     }
 }
