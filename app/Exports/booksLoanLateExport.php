@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\bookLoan;
+use App\Models\BookLoan;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
