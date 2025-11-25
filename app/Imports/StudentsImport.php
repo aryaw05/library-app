@@ -18,6 +18,15 @@ class StudentsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOn
     
 
    use Importable, SkipsFailures;
+
+    public function prepareForValidation(array $row)
+    {
+        if (isset($row['nis'])) {
+            $row['nis'] = (string) $row['nis'];
+        }
+
+        return $row;
+    }
     public function model(array $row)
     {
          $tanggal = null;
@@ -36,7 +45,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOn
         }
     }
         return new Student([
-            'nis'        => $row['nis'],
+            'nis'        =>  (string) $row['nis'],
             'name'       => $row['nama'],
             'class'      => $row['kelas'],
             'gender'     => $row['jenis_kelamin'] ?? null,
@@ -50,7 +59,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOn
      public function rules(): array
     {
         return [
-            '*.nis'            => 'required|numeric|unique:students,nis',
+            '*.nis'            => 'required|string|unique:students,nis',
             '*.nama'           => 'required|string',
             '*.kelas'          => 'required|string',
             '*.jenis_kelamin'  => 'nullable|string',
