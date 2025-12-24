@@ -42,9 +42,9 @@ Route::middleware('auth' , 'verified')->group(function () {
 
     // books loan return routes
     Route::put('/books-loan/{books_loan}/return', [BooksLoanController::class, 'return'])->name('books-loan.return');
-});
-    // books late
-Route::get('/books-late' , [BooksLateController::class, 'index'])->name('books-late');
+
+      // books late
+    Route::get('/books-late' , [BooksLateController::class, 'index'])->name('books-late');
 
 
 
@@ -60,6 +60,8 @@ Route::get('/books-late' , [BooksLateController::class, 'index'])->name('books-l
 
     // tutorial
     Route::get('/tutorial' , [OverviewController::class, 'tutorial'])->name('tutorial');
+});
+  
 
 
 require __DIR__.'/auth.php';
