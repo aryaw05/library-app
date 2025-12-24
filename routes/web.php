@@ -6,6 +6,7 @@ use App\Http\Controllers\BooksLoanController;
 use App\Http\Controllers\OverviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherAndStaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,7 +47,8 @@ Route::middleware('auth' , 'verified')->group(function () {
       // books late
     Route::get('/books-late' , [BooksLateController::class, 'index'])->name('books-late');
 
-
+    // teacher and staff
+    Route::resource('teacher-and-staff', TeacherAndStaffController::class);
 
     // exports
     Route::get('/export-books', [BooksController::class, 'export'])->name('books.export');
