@@ -3,6 +3,7 @@
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\BooksLateController;
 use App\Http\Controllers\BooksLoanController;
+use App\Http\Controllers\Extracurriculars\ExtracurricularsController;
 use App\Http\Controllers\OverviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
@@ -49,6 +50,11 @@ Route::middleware('auth' , 'verified')->group(function () {
 
     // teacher and staff
     Route::resource('teacher-and-staff', TeacherAndStaffController::class);
+
+
+    // extracurriculars 
+    Route::resource('extracurriculars', ExtracurricularsController ::class);
+
 
     // exports
     Route::get('/export-books', [BooksController::class, 'export'])->name('books.export');
