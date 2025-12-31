@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teacher_and_staff', function (Blueprint $table) {
+        Schema::create('extracurriculars', function (Blueprint $table) {
             $table->id();
             $table->string('name' , 255);
-            $table->string('category' , 50);
-            $table->string('position' , 50);
-            $table->string('photo' , 255);
-            $table->integer('order' )->default(value: 0);
+            $table->string('description',255);
+            $table->string('photo',255);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teacher_and_staff');
+        Schema::dropIfExists('extracurriculars');
     }
 };
