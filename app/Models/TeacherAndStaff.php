@@ -8,7 +8,6 @@ class TeacherAndStaff extends Model
 {
     protected $fillable =[
         'name',
-        'category',
         'position',
         'photo',
         'order',
