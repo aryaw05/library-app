@@ -42,6 +42,7 @@ class TeacherAndStaffController extends Controller
                  'order' => 'required|integer',
             ]);
 
+            
             $path = $request->file('photo')->store('teacher/photo', 'public');
             
             TeacherAndStaff::create([
@@ -75,9 +76,31 @@ class TeacherAndStaffController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-{
-        //
+    public function update(Request $request, TeacherAndStaff $teacherAndStaff)
+    {   
+        $request->validate([
+            'name'=> 'required|max:255',
+            'position'=> 'required|max:50',
+            'photo' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'order' => 'required|integer',
+        ]);
+            $data = $request->only(['name', 'position', 'order']);
+
+        if ($request->hasFile('photo')) {
+        // Hapus foto lama jika ada
+            if ($teacherAndStaff->photo && Storage::disk('public')->exists($teacherAndStaff->photo)) {
+                    Storage::disk('public')->delete($teacherAndStaff->photo);
+            }
+            // Simpan foto baru
+            $data['photo'] = $request->file('photo')->store('teacher/photo', 'public');
+        }
+            
+        $teacherAndStaff->update($data);
+        
+
+
+        return redirect()->route('teacher-and-staff.index')->with('success', 'Data Profile berhasil diperbarui.');
+        
     }
 
     /**
@@ -85,12 +108,12 @@ class TeacherAndStaffController extends Controller
      */
     public function destroy(TeacherAndStaff $teacherAndStaff)
     {
+        dd($teacherAndStaff);
         if($teacherAndStaff->photo){
             Storage::disk('public')->delete($teacherAndStaff->photo);
         }
-        $teacher = TeacherAndStaff::findOrFail($teacherAndStaff->id);
 
-        $teacher->delete();
+        $teacherAndStaff->delete();
 
         return redirect()->back()->with('success','Data Profile berhasil dihapus');
     }

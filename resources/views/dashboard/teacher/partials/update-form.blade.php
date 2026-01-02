@@ -10,14 +10,15 @@
         class="bg-white dark:bg-gray-800 max-w-xl mx-auto px-6 py-8 lg:py-12 rounded-xl shadow-sm"
     >
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-            Tambah Profile
+            Update Profile
         </h2>
         <form
-            action="{{ route("teacher-and-staff.store") }}"
             method="POST"
+            action="{{ route("teacher-and-staff.update", $teacher->id) }}"
             enctype="multipart/form-data"
         >
             @csrf
+            @method("PUT")
             <div class="grid gap-4 sm:grid-cols-2 grid-cols-1 sm:gap-6">
                 <!-- Pilih Buku -->
                 <div class="w-full sm:col-span-2">
@@ -25,11 +26,15 @@
                         for="book_id_add"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                        Judul Buku
+                        Foto
                     </label>
                 </div>
                 <!-- Phoot Profile -->
                 <div>
+                    <img
+                        src="{{ asset("storage/" . $teacher->photo ?? "") }}"
+                        alt=""
+                    />
                     <input type="file" name="photo" id="photo" />
                 </div>
                 <!-- Nama-->
@@ -46,6 +51,7 @@
                         id="name"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         required
+                        value="{{ $teacher->name }}"
                     />
                 </div>
                 <!-- Jabatan -->
@@ -62,6 +68,7 @@
                         id="position"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         required
+                        value="{{ $teacher->position }}"
                     />
                 </div>
 
@@ -79,10 +86,26 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         required
                     >
-                        <option value="" disabled selected>Pilih urutan</option>
-                        <option value="1">Urutan 1</option>
-                        <option value="2">Urutan 2</option>
-                        <option value="3">Urutan 3</option>
+                        <option value="" disabled>Pilih urutan</option>
+
+                        <option
+                            value="1"
+                            {{ old("order", $teacher->order) == 1 ? "selected" : "" }}
+                        >
+                            Urutan 1
+                        </option>
+                        <option
+                            value="2"
+                            {{ old("order", $teacher->order) == 2 ? "selected" : "" }}
+                        >
+                            Urutan 2
+                        </option>
+                        <option
+                            value="3"
+                            {{ old("order", $teacher->order) == 3 ? "selected" : "" }}
+                        >
+                            Urutan 3
+                        </option>
                     </select>
                 </div>
                 <!-- Tombol Submit -->
