@@ -11,4 +11,9 @@ class Extracurricular extends Model
         "description",
         "photo"
     ];
+
+       public function achievements()
+    {
+        return $this->hasMany(ExtracurricularsAchievements::class);
+    }
 }
