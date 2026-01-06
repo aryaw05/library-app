@@ -3,16 +3,16 @@
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\BooksLateController;
 use App\Http\Controllers\BooksLoanController;
+use App\Http\Controllers\Extracurriculars\ExtracurricularsAchievementController;
 use App\Http\Controllers\Extracurriculars\ExtracurricularsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OverviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherAndStaffController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[HomeController::class , 'index'])->name('home');
 
 Route::get('/dashboard' ,[OverviewController::class,  'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -30,7 +30,8 @@ Route::middleware('auth' , 'verified')->group(function () {
     Route::resource('books', BooksController::class);
 
     // import students
-    Route::post('/students/import' , [StudentController::class, 'import'])->name('students.import');
+    Route::post('/students/import' , 
+    [StudentController::class, 'import'])->name('students.import');
 
 
 
@@ -54,6 +55,9 @@ Route::middleware('auth' , 'verified')->group(function () {
 
     // extracurriculars 
     Route::resource('extracurriculars', ExtracurricularsController ::class);
+
+    // achievements routes
+    Route::resource('extracurriculars.achievements', ExtracurricularsAchievementController ::class);
 
 
     // exports
