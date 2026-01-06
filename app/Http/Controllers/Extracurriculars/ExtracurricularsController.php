@@ -53,15 +53,22 @@ class ExtracurricularsController extends Controller
 
 
     }
-
     /**
      * Display the specified resource.
      */
     public function show(Extracurricular $extracurricular)
     {
-        return view('dashboard.extracurriculars.achievement.index', compact('extracurricular'));
-    }
+         $achievements = $extracurricular
+        ->achievements()
+        ->latest()
+        ->paginate(10);
 
+    return view(
+        'dashboard.extracurriculars.partials.show-form',
+        compact('extracurricular', 'achievements')
+    );
+
+    }
     /**
      * Show the form for editing the specified resource.
      */
