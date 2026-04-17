@@ -49,15 +49,15 @@ Route::middleware('auth' , 'verified')->group(function () {
       // books late
     Route::get('/books-late' , [BooksLateController::class, 'index'])->name('books-late');
 
-    // teacher and staff
-    Route::resource('teacher-and-staff', TeacherAndStaffController::class);
+    // // teacher and staff
+    // Route::resource('teacher-and-staff', TeacherAndStaffController::class);
 
 
-    // extracurriculars 
-    Route::resource('extracurriculars', ExtracurricularsController ::class);
+    // // extracurriculars 
+    // Route::resource('extracurriculars', ExtracurricularsController ::class);
 
-    // achievements routes
-    Route::resource('extracurriculars.achievements', ExtracurricularsAchievementController ::class);
+    // // achievements routes
+    // Route::resource('extracurriculars.achievements', ExtracurricularsAchievementController ::class);
 
 
     // exports

@@ -13,13 +13,13 @@ class TeacherAndStaffController extends Controller
      */
     public function index( Request $request)
     {
-        $search  = $request->query('search');
+        // $search  = $request->query('search');
         
-        $teachers = TeacherAndStaff::when($search, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%");
-        })->orderBy('name', 'asc')->paginate(10);
+        // $teachers = TeacherAndStaff::when($search, function ($query, $search) {
+        //     return $query->where('name', 'like', "%{$search}%");
+        // })->orderBy('name', 'asc')->paginate(10);
 
-        return view('dashboard.teacher.index', compact('teachers' , 'search'));
+        // return view('dashboard.teacher.index', compact('teachers' , 'search'));
     }
 
     /**
@@ -27,7 +27,7 @@ class TeacherAndStaffController extends Controller
      */
     public function create()
     {
-        return view('dashboard.teacher.partials.add-form');
+        // return view('dashboard.teacher.partials.add-form');
     }
 
     /**
@@ -35,25 +35,25 @@ class TeacherAndStaffController extends Controller
      */
     public function store(Request $request)
     {
-            $request->validate([
-                'name'=> 'required|max:255',
-                'position'=> 'required|max:50',
-                'photo' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-                 'order' => 'required|integer',
-            ]);
+            // $request->validate([
+            //     'name'=> 'required|max:255',
+            //     'position'=> 'required|max:50',
+            //     'photo' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            //      'order' => 'required|integer',
+            // ]);
 
             
-            $path = $request->file('photo')->store('teacher/photo', 'public');
+            // $path = $request->file('photo')->store('teacher/photo', 'public');
             
-            TeacherAndStaff::create([
-                'name'=> $request->name,
-                'position'=> $request->position,
-                'photo'=> $path,
-                'order'=> $request->order,
-            ]);
+            // TeacherAndStaff::create([
+            //     'name'=> $request->name,
+            //     'position'=> $request->position,
+            //     'photo'=> $path,
+            //     'order'=> $request->order,
+            // ]);
 
         
-             return redirect()->route('teacher-and-staff.index')->with('success', 'Data Profile berhasil ditambahkan.');
+            //  return redirect()->route('teacher-and-staff.index')->with('success', 'Data Profile berhasil ditambahkan.');
     }
 
     /**
@@ -69,8 +69,8 @@ class TeacherAndStaffController extends Controller
      */
     public function edit(string $id)
     {
-       $teacher = TeacherAndStaff::findOrFail($id);
-        return view('dashboard.teacher.partials.update-form', compact('teacher'));
+    //    $teacher = TeacherAndStaff::findOrFail($id);
+    //     return view('dashboard.teacher.partials.update-form', compact('teacher'));
     }
 
     /**
@@ -78,28 +78,26 @@ class TeacherAndStaffController extends Controller
      */
     public function update(Request $request, TeacherAndStaff $teacherAndStaff)
     {   
-        $request->validate([
-            'name'=> 'required|max:255',
-            'position'=> 'required|max:50',
-            'photo' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-            'order' => 'required|integer',
-        ]);
-            $data = $request->only(['name', 'position', 'order']);
+        // $request->validate([
+        //     'name'=> 'required|max:255',
+        //     'position'=> 'required|max:50',
+        //     'photo' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+        //     'order' => 'required|integer',
+        // ]);
+        //     $data = $request->only(['name', 'position', 'order']);
 
-        if ($request->hasFile('photo')) {
-        // Hapus foto lama jika ada
-            if ($teacherAndStaff->photo && Storage::disk('public')->exists($teacherAndStaff->photo)) {
-                    Storage::disk('public')->delete($teacherAndStaff->photo);
-            }
-            // Simpan foto baru
-            $data['photo'] = $request->file('photo')->store('teacher/photo', 'public');
-        }
+        // if ($request->hasFile('photo')) {
+        //     if ($teacherAndStaff->photo && Storage::disk('public')->exists($teacherAndStaff->photo)) {
+        //             Storage::disk('public')->delete($teacherAndStaff->photo);
+        //     }
+        //     $data['photo'] = $request->file('photo')->store('teacher/photo', 'public');
+        // }
             
-        $teacherAndStaff->update($data);
+        // $teacherAndStaff->update($data);
         
 
 
-        return redirect()->route('teacher-and-staff.index')->with('success', 'Data Profile berhasil diperbarui.');
+        // return redirect()->route('teacher-and-staff.index')->with('success', 'Data Profile berhasil diperbarui.');
         
     }
 
@@ -108,13 +106,13 @@ class TeacherAndStaffController extends Controller
      */
     public function destroy(TeacherAndStaff $teacherAndStaff)
     {
-        dd($teacherAndStaff);
-        if($teacherAndStaff->photo){
-            Storage::disk('public')->delete($teacherAndStaff->photo);
-        }
+        // dd($teacherAndStaff);
+        // if($teacherAndStaff->photo){
+        //     Storage::disk('public')->delete($teacherAndStaff->photo);
+        // }
 
-        $teacherAndStaff->delete();
+        // $teacherAndStaff->delete();
 
-        return redirect()->back()->with('success','Data Profile berhasil dihapus');
+        // return redirect()->back()->with('success','Data Profile berhasil dihapus');
     }
 }
